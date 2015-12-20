@@ -1,0 +1,25 @@
+At first, I don't know play, but it seems, that question is related to scala.
+I tried to simplify your sample, according to your question(what is _):
+
+    object Main {
+      "ean" -> longNumber.verifying("validation.ean.duplicate", Product.findByEan(_).isEmpty)
+    }
+
+    object longNumber {
+      def verifying(s: String, f: String => Boolean): String = ???
+    }
+
+    object Product{
+      def findByEan(s: String): Seq[Int] = ???
+    }
+
+Look at Main
+
+    "ean" -> longNumber.verifying("validation.ean.duplicate", Product.findByEan(_).isEmpty)
+
+this can be rewritten to
+
+    "ean" -> longNumber.verifying("validation.ean.duplicate", t => Product.findByEan(t).isEmpty)
+
+longNumber.verifying takes some string and a function f: String => Boolean, does something with it and return String.
+In product we just have simple function, that takes string and return Seq.
